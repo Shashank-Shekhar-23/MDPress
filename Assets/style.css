@@ -1,0 +1,359 @@
+:root {
+    --bg-color: #f3f4f6;
+    --nav-bg: #1e1e1e;
+    --text-main: #1f2937;
+    --border-color: #d1d5db;
+    --editor-bg: #ffffff;
+    --preview-bg: #ffffff;
+    --accent: #007acc;
+    --code-bg: #1e1e1e;
+    --vs-font: 'Cascadia Code', 'Consolas', 'Courier New', monospace;
+}
+
+[data-theme="dark"] {
+    --bg-color: #0d1117;
+    --nav-bg: #161b22;
+    --text-main: #e6edf3;
+    --border-color: #30363d;
+    --editor-bg: #0d1117;
+    --preview-bg: #0d1117;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Lexend', sans-serif;
+}
+
+body {
+    font-family: 'Lexend', sans-serif;
+    background: var(--bg-color);
+    color: var(--text-main);
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Toolbar */
+.toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 20px;
+    background: var(--nav-bg);
+    color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+}
+
+.toolbar h1 {
+    font-size: 1.2rem;
+}
+
+.btn-group {
+    display: flex;
+    gap: 10px;
+}
+
+button {
+    padding: 6px 12px;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    font-size: 13px;
+    transition: 0.2s;
+}
+
+.btn-primary {
+    background: var(--accent);
+    color: white;
+}
+
+.btn-secondary {
+    background: #444;
+    color: #ddd;
+}
+
+button:hover {
+    opacity: 0.8;
+}
+
+/* Layout */
+.workspace {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+    padding: 12px;
+    gap: 12px;
+}
+
+.pane {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background: var(--editor-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.pane-header {
+    padding: 6px 12px;
+    background: #f9fafb;
+    border-bottom: 1px solid var(--border-color);
+    font-size: 11px;
+    color: #6b7280;
+    text-transform: uppercase;
+}
+
+[data-theme="dark"] .pane-header {
+    background: #161b22;
+    color: #8b949e;
+}
+
+textarea {
+    flex: 1;
+    padding: 20px;
+    border: none;
+    outline: none;
+    resize: none;
+    font-family: var(--vs-font);
+    font-size: 14px;
+    background: transparent;
+    color: inherit;
+    line-height: 1.6;
+}
+
+/* Preview Styles */
+#preview {
+    flex: 1;
+    padding: 40px;
+    overflow-y: auto;
+    background: var(--preview-bg);
+}
+
+#preview h1 {
+    color: var(--accent);
+    border-bottom: 2px solid #eee;
+    padding-bottom: 8px;
+    margin-bottom: 16px;
+}
+
+#preview h2 {
+    margin-top: 24px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 4px;
+}
+
+#preview p {
+    margin: 12px 0;
+    line-height: 1.7;
+}
+
+/* List Formatting */
+#preview ul,
+#preview ol {
+    margin-left: 25px;
+    margin-bottom: 15px;
+    list-style-position: outside;
+}
+
+#preview ul {
+    list-style-type: disc;
+}
+
+#preview li {
+    margin-bottom: 6px;
+}
+
+/* Styled Tables */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 24px 0;
+    font-size: 0.95em;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: #f8f9fa;
+    color: #333;
+    text-align: left;
+    padding: 12px;
+    border-bottom: 2px solid var(--border-color);
+}
+
+td {
+    padding: 12px;
+    border-bottom: 1px solid var(--border-color);
+    color: var(--text-main);
+}
+
+tr:nth-child(even) {
+    background-color: #fafbfc;
+}
+
+[data-theme="dark"] th {
+    background: #161b22;
+    color: #e6edf3;
+}
+
+[data-theme="dark"] tr:nth-child(even) {
+    background-color: #0d1117;
+}
+
+/* Code Blocks & Inline Code */
+code,
+code.hljs {
+    font-family: var(--vs-font) !important;
+    font-size: 1.05rem !important;
+}
+
+p code,
+li code {
+    border: 2px solid rgb(185, 220, 250);
+    background-color: aliceblue;
+    border-radius: 4px;
+    padding: 2px 6px;
+    color: rgb(90, 176, 251);
+}
+
+pre {
+    background: var(--code-bg) !important;
+    padding: 18px;
+    border-radius: 8px;
+    margin: 16px 0;
+    position: relative;
+    border: 1px solid #333;
+    white-space: pre-wrap !important;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+pre code {
+    color: #d4d4d4 !important;
+    background: transparent !important;
+    border: none !important;
+    white-space: pre-wrap !important;
+    display: block;
+}
+
+/* Copy Button */
+.copy-btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    font-size: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    color: #ccc;
+    border: 1px solid #444;
+    padding: 4px 8px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+/* Latex */
+.katex-display {
+    margin: 1em 0;
+    overflow-x: auto;
+    padding: 10px 0;
+}
+
+/* Mermaid */
+.mermaid {
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+    border: 1px solid #eee;
+}
+
+/* PDF PRINTING FIXES */
+@media print {
+
+    body,
+    .workspace {
+        display: block;
+        height: auto !important;
+        background: white !important;
+    }
+
+    .toolbar,
+    .pane:first-child,
+    .pane-header,
+    .copy-btn {
+        display: none !important;
+    }
+
+    .workspace {
+        padding: 0;
+        margin: 0;
+    }
+
+    .pane {
+        border: none;
+        overflow: visible;
+        display: block;
+    }
+
+    #preview {
+        padding: 0;
+        overflow: visible !important;
+        display: block;
+        color: black !important;
+        background: white !important;
+    }
+
+    #preview ul {
+        list-style-type: disc !important;
+        display: block !important;
+    }
+
+    #preview li {
+        display: list-item !important;
+    }
+
+    pre,
+    code,
+    span,
+    .mermaid svg,
+    table,
+    th,
+    td {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+
+    pre {
+        background: #1e1e1e !important;
+        color: #d4d4d4 !important;
+        page-break-inside: avoid;
+        white-space: pre-wrap !important;
+        word-wrap: break-word !important;
+        font-size: 12px;
+    }
+
+    table {
+        page-break-inside: auto;
+    }
+
+    tr {
+        page-break-inside: avoid;
+        page-break-after: auto;
+    }
+
+    @page {
+        margin: 1cm;
+        size: A4;
+    }
+}
+
+a {
+    text-decoration: none;
+    color: rgb(90, 176, 251);
+}

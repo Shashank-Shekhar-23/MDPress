@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pro Notes: MD, LaTeX & Mindmaps</title>
+
+    <!-- Google Fonts: Lexend -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Syntax Highlighting (VS Code Style) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/vs2015.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+
+    <!-- LaTeX (KaTeX) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+
+    <!-- Diagrams (Mermaid) -->
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+
+    <!-- Markdown (Marked) -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+    <link rel="stylesheet" href="Assets/style.css">
+
+</head>
+
+<body>
+
+    <div class="toolbar">
+        <h1>Pro Markdown Editor</h1>
+        <div class="btn-group">
+            <button class="btn-secondary" onclick="toggleTheme()">🌓 Theme</button>
+            <button class="btn-secondary" onclick="downloadMD()">💾 Save MD</button>
+            <button class="btn-primary" onclick="window.print()">🖨️ Export PDF</button>
+        </div>
+    </div>
+
+    <div class="workspace">
+        <div class="pane">
+            <div class="pane-header">Editor</div>
+            <textarea id="editor" placeholder="Write markdown, LaTeX, or Mermaid here..."></textarea>
+        </div>
+        <div class="pane">
+            <div class="pane-header">Live Preview</div>
+            <div id="preview"></div>
+        </div>
+    </div>
+    <script src="Assets/script.js"></script>
+</body>
+
+</html>
