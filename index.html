@@ -32,14 +32,17 @@
 
 <body>
 
-    <div class="toolbar">
-        <h1>Pro Markdown Editor</h1>
+    <nav class="toolbar">
+        <h1>MDPress</h1>
         <div class="btn-group">
-            <button class="btn-secondary" onclick="toggleTheme()">🌓 Theme</button>
-            <button class="btn-secondary" onclick="downloadMD()">💾 Save MD</button>
-            <button class="btn-primary" onclick="window.print()">🖨️ Export PDF</button>
+            <button class="btn-secondary" onclick="toggleTheme()"><i class="fa-solid fa-circle-half-stroke"
+                    style="color: var(--accent);"></i> Theme</button>
+            <button class="btn-secondary" onclick="downloadMD()"><i class="fa-brands fa-markdown"
+                    style="color: var(--accent);"></i> Save MD</button>
+            <button class="btn-primary" onclick="window.print()"><i class="fa-solid fa-file-pdf"
+                    style="color: white;"></i> Export PDF</button>
         </div>
-    </div>
+    </nav>
 
     <div class="workspace">
         <div class="pane">
