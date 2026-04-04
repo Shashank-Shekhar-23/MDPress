@@ -7,7 +7,7 @@
     --preview-bg: #ffffff;
     --accent: #007acc;
     --code-bg: #1e1e1e;
-    --vs-font: 'Cascadia Code', 'Consolas', 'Courier New', monospace;
+    --vs-font: 'Consolas', 'Courier New', monospace;
 }
 
 [data-theme="dark"] {
@@ -242,6 +242,12 @@ pre code {
     border: none !important;
     white-space: pre-wrap !important;
     display: block;
+}
+
+pre code span {
+    font-family: var(--vs-font) !important;
+    font-style: normal !important;
+    /*Makes the comment in normal style not in italic */
 }
 
 /* Copy Button */

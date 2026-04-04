@@ -8,48 +8,188 @@ mermaid.initialize({
     suppressErrorIndicators: true // Attempt to suppress internal errors
 });
 
-const initialContent = `# Advanced Study Notes 📚
+const initialContent = `# 🧪 MDPress
 
-## 1. Lists Test (Print Check)
-* This is an unordered list item
-* This should be visible in PDF
-* Using \`inline code\` with blue border
+Welcome to the **MDPress preview**. This document have all major features.
 
-## 2. Mathematical Formulas (LaTeX)
-The Quadratic Formula:
-$$x = \\frac{-b \\pm \\sqrt{b^2 - 4ac}}{2a}$$
+---
 
-## 3. Dynamic Mindmaps (Mermaid)
-\`\`\`mermaid
-mindmap
-  root((Computer Science))
-    Languages
-      Java
-      Python
-      C
-    Data Structures
-      Arrays
-      Trees
-\`\`\`
+## ✍️ Text Formatting
 
-## 4. Tables
-| Feature | Java | Python |
-| :--- | :--- | :--- |
-| Typing | Static | Dynamic |
+- **Bold text**
+- *Italic text*
+- ***Bold + Italic***
+- ~~Strikethrough~~
+- Inline code: \`const x = 10;\`
 
-## 5. VS Code Code Blocks
-\`\`\`java
-public class Main {
-    public static void main(String[] args) {
-        System.out.println("Colors should be VS Code style!");
-    }
+---
+
+## 🔗 Links
+
+- [OpenAI](https://openai.com)
+- [Markdown Guide](https://www.markdownguide.org)
+
+---
+
+## 📋 Lists
+
+### Unordered
+- Item 1
+- Item 2
+  - Nested Item
+
+### Ordered
+1. First
+2. Second
+3. Third
+
+---
+
+## 📊 Table
+
+| Name     | Age | Role        |
+|----------|-----|------------|
+| Alice    | 25  | Developer  |
+| Bob      | 30  | Designer   |
+| Charlie  | 28  | Manager    |
+
+---
+
+## 💻 Code Blocks
+
+### JavaScript
+\`\`\`javascript
+function greet(name) {
+  return \`Hello, \\\${name}!\`;
 }
+console.log(greet("MDPress"));
 \`\`\`
-`;
+
+### Python
+
+\`\`\`python
+def greet(name):
+    return f"Hello, {name}!"
+
+print(greet("MDPress"))
+\`\`\`
+
+---
+
+## 📐 LaTeX (Math Support)
+
+### Inline Math
+
+Euler’s formula: $e^{i\\pi} + 1 = 0$
+
+### Block Math
+
+$$
+\\int_{0}^{\\infty} e^{-x} dx = 1
+$$
+
+### Matrix
+
+$$
+\\begin{bmatrix}1 & 2 
+\\3 & 4
+\\end{bmatrix}
+$$
+
+---
+
+## 📈 Mermaid Diagrams
+
+### Flowchart
+
+\`\`\`mermaid
+graph TD
+    A[Start] --> B{Is it working?}
+    B -->|Yes| C[Great! 🎉]
+    B -->|No| D[Fix it 🔧]
+    D --> B
+\`\`\`
+
+### Sequence Diagram
+
+\`\`\`mermaid
+sequenceDiagram
+    participant User
+    participant MDPress
+    User->>MDPress: Load Markdown
+    MDPress-->>User: Render Preview
+\`\`\`
+
+### Class Diagram
+
+\`\`\`mermaid
+classDiagram
+    Animal <|-- Dog
+    Animal <|-- Cat
+    Animal: +name
+    Animal: +eat()
+    Dog: +bark()
+    Cat: +meow()
+\`\`\`
+
+---
+
+## 🧾 Blockquote
+
+> "Markdown is not a replacement for HTML, but a complement."
+>
+> — Someone wise
+
+---
+
+## ✅ Task List
+
+* [x] Markdown
+* [x] Code blocks
+* [x] Tables
+* [x] LaTeX
+* [x] Mermaid diagrams
+* [ ] Add more features
+
+---
+
+## 🔥 Horizontal Rule
+
+---
+
+## 🧪 HTML Support
+
+<div style="color: green; font-weight: bold;">
+  This is raw HTML inside Markdown.
+</div>
+
+---`;
+
+
+function preprocessLaTeX(text) {
+    let processed = text;
+
+    // Convert block
+    processed = processed.replace(/\\\[([\s\S]*?)\\\]/g, '$$$$$1$$$$');
+
+    // Convert inline
+    processed = processed.replace(/\\\(([\s\S]*?)\\\)/g, '$$$1$$');
+
+    // Convert only if it looks like LaTeX
+    processed = processed.replace(/^\[([\s\S]*?)\]/gm, (match, content) => {
+        if (content.includes('\\') || content.includes('^') || content.includes('_') || content.includes('=')) {
+            return '$$' + content + '$$';
+        }
+        return match;
+    });
+
+    return processed;
+}
 
 async function render() {
     const currentScroll = preview.scrollTop;
-    const md = editor.value;
+    let md = editor.value;
+    md = preprocessLaTeX(md);
     preview.innerHTML = marked.parse(md);
 
     renderMathInElement(preview, {
