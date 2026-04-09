@@ -26,13 +26,22 @@
     font-family: 'Lexend', sans-serif;
 }
 
+html,
+body {
+    height: 100%;
+    margin: 0;
+}
+
 body {
     font-family: 'Lexend', sans-serif;
     background: var(--bg-color);
     color: var(--text-main);
+    display: grid;
+    grid-template-rows: auto 1fr;
+    padding: 0;
+    margin: 0;
     height: 100vh;
-    display: flex;
-    flex-direction: column;
+    overflow: hidden;
 }
 
 /* Toolbar */
@@ -84,24 +93,28 @@ button:hover {
 
 /* Layout */
 .workspace {
-    display: flex;
-    flex: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    height: 100%;
+    padding: clamp(0.75rem, 2.5vw, 1rem);
+    gap: clamp(0.75rem, 2vw, 1rem);
     overflow: hidden;
-    padding: 12px;
-    gap: 12px;
+    box-sizing: border-box;
 }
 
 .pane {
-    flex: 1;
     display: flex;
     flex-direction: column;
     background: var(--editor-bg);
     border: 1px solid var(--border-color);
     border-radius: 8px;
+    height: 100%;
     overflow: hidden;
+    flex: 1;
 }
 
 .pane-header {
+    flex-shrink: 0;
     padding: 6px 12px;
     background: #f9fafb;
     border-bottom: 1px solid var(--border-color);
@@ -138,14 +151,18 @@ textarea {
 
 #preview h1 {
     color: var(--accent);
-    border-bottom: 2px solid #eee;
+    /* border-bottom: 2px solid #eee; */
     padding-bottom: 8px;
     margin-bottom: 16px;
 }
 
-#preview h2 {
-    margin-top: 24px;
-    border-bottom: 1px solid #eee;
+#preview h2,
+#preview h3,
+#preview h4,
+#preview h5,
+#preview h6 {
+    margin: 24px 0px;
+    /* border-bottom: 1px solid #eee; */
     padding-bottom: 4px;
 }
 
@@ -171,14 +188,32 @@ textarea {
 }
 
 /* Styled Tables */
-table {
+/* Responsive Tables */
+#preview table {
     width: 100%;
+    max-width: 100%;
     border-collapse: collapse;
     margin: 24px 0;
-    font-size: 0.95em;
+    font-size: clamp(0.85em, 2.5vw, 0.95em);
     border: 1px solid var(--border-color);
     border-radius: 8px;
     overflow: hidden;
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+}
+
+#preview table thead {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+}
+
+#preview table tbody,
+#preview table tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
 }
 
 th {
@@ -284,62 +319,85 @@ pre code span {
 
 /* Responsiveness */
 
-/* ---------- Responsive layout ---------- */
 /* Make workspace stack on small screens */
+@media (max-width: 1200px) {
+    .workspace {
+        padding: clamp(0.5rem, 2vw, 1rem);
+    }
+}
+
 @media (max-width: 900px) {
     .workspace {
-        flex-direction: column;
-        padding: 10px;
-        gap: 10px;
+        grid-template-columns: 1fr;
+        padding: clamp(0.5rem, 3vw, 0.75rem);
+        gap: 0.75rem;
     }
 
     .pane {
-        width: 100%;
-        min-height: 220px;
+        height: auto;
+        min-height: 30vh;
     }
 
     #preview {
-        padding: 20px;
+        padding: clamp(1rem, 4vw, 1.5rem);
     }
 
     textarea {
-        padding: 14px;
-        font-size: 15px;
+        padding: 1rem;
+        font-size: clamp(14px, 4vw, 16px);
     }
 
     .toolbar {
         flex-wrap: wrap;
-        gap: 8px;
-        padding: 10px;
+        gap: 0.5rem;
+        padding: clamp(0.75rem, 2vw, 1rem);
     }
 
     .toolbar h1 {
-        font-size: 1.1rem;
+        font-size: clamp(1rem, 5vw, 1.2rem);
     }
 
     .btn-group {
         justify-content: flex-end;
-    }
-}
-
-/* Mobile tweaks */
-@media (max-width: 480px) {
-    .pane-header {
-        font-size: 10px;
-        padding: 8px;
-    }
-
-    .btn-group {
-        gap: 6px;
+        flex: 1;
+        gap: 0.25rem;
     }
 
     button {
-        padding: 8px 10px;
-        font-size: 13px;
+        padding: clamp(0.5rem, 2vw, 0.75rem) clamp(0.75rem, 3vw, 1rem);
+        font-size: clamp(12px, 3.5vw, 14px);
+        min-height: 40px;
+    }
+}
+
+@media (max-width: 768px) {
+    body {
+        font-size: clamp(14px, 3vw, 16px);
+    }
+
+    table {
+        font-size: 0.9em;
+    }
+}
+
+@media (max-width: 480px) {
+    .pane-header {
+        font-size: clamp(10px, 3vw, 12px);
+        padding: 0.75rem;
     }
 
     #preview {
-        padding: 14px;
+        padding: 1rem;
+    }
+
+    .toolbar h1 {
+        margin-right: auto;
+    }
+}
+
+@media (max-width: 360px) {
+    .btn-text {
+        display: none;
     }
 }
 
@@ -475,4 +533,6 @@ pre code span {
 a {
     text-decoration: none;
     color: rgb(90, 176, 251);
+    pointer-events: auto;
+    cursor: pointer;
 }
