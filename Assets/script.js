@@ -5,7 +5,7 @@ mermaid.initialize({
     startOnLoad: false,
     theme: 'neutral',
     securityLevel: 'loose',
-    suppressErrorIndicators: true // Attempt to suppress internal errors
+    suppressErrorIndicators: true 
 });
 
 const initialContent = `# 🧪 MDPress
@@ -167,23 +167,27 @@ classDiagram
 
 
 function preprocessLaTeX(text) {
-    let processed = text;
+    if (!text || typeof text !== "string") return text;
 
-    // Convert block
-    processed = processed.replace(/\\\[([\s\S]*?)\\\]/g, '$$$$$1$$$$');
+    const parts = text.split(/(```[\s\S]*?```|`[^`]*`)/g);
 
-    // Convert inline
-    processed = processed.replace(/\\\(([\s\S]*?)\\\)/g, '$$$1$$');
-
-    // Convert only if it looks like LaTeX
-    processed = processed.replace(/^\[([\s\S]*?)\]/gm, (match, content) => {
-        if (content.includes('\\') || content.includes('^') || content.includes('_') || content.includes('=')) {
-            return '$$' + content + '$$';
+    return parts.map(part => {
+        // Skip code blocks & inline code
+        if (part.startsWith("```") || part.startsWith("`")) {
+            return part;
         }
-        return match;
-    });
 
-    return processed;
+        // Process only normal text
+        return part
+            .replace(/\\\[\s*([\s\S]*?)\s*\\\]/g, (_, c) => `$$${c.trim()}$$`)
+            .replace(/\\\(\s*([\s\S]*?)\s*\\\)/g, (_, c) => `$${c.trim()}$`)
+            .replace(/^\[([\s\S]*?)\]$/gm, (m, c) => {
+                const t = c.trim();
+                const looksLikeLatex = /\\[a-zA-Z]+|[\^_{}]|=|\+|-/.test(t);
+                return looksLikeLatex ? `$$${t}$$` : m;
+            });
+
+    }).join("");
 }
 
 async function render() {
