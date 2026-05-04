@@ -200,7 +200,6 @@ textarea {
     overflow: hidden;
     display: block;
     overflow-x: auto;
-    white-space: nowrap;
 }
 
 #preview table thead {
@@ -283,6 +282,17 @@ pre code span {
     font-family: var(--vs-font) !important;
     font-style: normal !important;
     /*Makes the comment in normal style not in italic */
+}
+
+blockquote {
+    border-left: 4px solid var(--accent);
+    margin: 12px 0 ;
+    line-height: 1.7;
+    background: #f7f7f8;
+    padding: 12px 16px;
+    border-radius: 8px;
+    color: #374151;
+    font-size: 0.95rem;
 }
 
 /* Copy Button */
