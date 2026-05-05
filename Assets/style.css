@@ -167,7 +167,7 @@ textarea {
 }
 
 #preview p {
-    margin: 12px 0;
+    margin: 6px 0;
     line-height: 1.7;
 }
 
@@ -287,12 +287,12 @@ pre code span {
 blockquote {
     border-left: 4px solid var(--accent);
     margin: 12px 0 ;
-    line-height: 1.7;
     background: #f7f7f8;
-    padding: 12px 16px;
+    padding: 1px 16px;
     border-radius: 8px;
     color: #374151;
     font-size: 0.95rem;
+    print-color-adjust: exact;
 }
 
 /* Copy Button */
